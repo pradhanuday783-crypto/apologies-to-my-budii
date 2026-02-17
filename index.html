@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>To, Mero Budii ❤️</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg,#ff9a9e,#fad0c4);
+    overflow: hidden;
+}
+
+.page {
+    display: none;
+    height: 100vh;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 30px;
+    box-sizing: border-box;
+}
+
+.active {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card {
+    background: white;
+    padding: 35px;
+    border-radius: 20px;
+    max-width: 450px;
+    text-align: center;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+h1 { color: #e91e63; }
+p { font-size: 17px; line-height: 1.7; color:#444; }
+
+button {
+    padding: 12px 22px;
+    margin: 10px;
+    border: none;
+    border-radius: 25px;
+    font-size: 15px;
+    cursor: pointer;
+    background:#e91e63;
+    color:white;
+}
+
+#noBtn {
+    background:#555;
+    position:absolute;
+}
+
+.teddy {
+    width:120px;
+    cursor:pointer;
+    transition:0.3s;
+}
+.teddy:hover {
+    transform:scale(1.1);
+}
+
+.hidden { display:none; }
+
+.heart {
+    position: fixed;
+    font-size: 22px;
+    animation: floatUp 6s linear infinite;
+}
+
+@keyframes floatUp {
+    0% { transform: translateY(100vh); opacity:1; }
+    100% { transform: translateY(-10vh); opacity:0; }
+}
+</style>
+</head>
+<body>
+
+<!-- PAGE 1 -->
+<div id="page1" class="page active">
+<div class="card">
+<h1>To, Mero Budii ❤️</h1>
+<p>
+From your bewakuf aadmi… <br>
+From your nanuu 🥺 <br><br>
+I know I hurt you. I know I was wrong.  
+But I never want to lose you because of my mistakes.
+</p>
+<button id="yesBtn">Forgive Me? 💕</button>
+<button id="noBtn">No 😤</button>
+</div>
+</div>
+
+<!-- PAGE 2 (Click Teddy to Reveal) -->
+<div id="page2" class="page">
+<div class="card">
+<h1>Click The Teddy 🧸</h1>
+<img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" class="teddy" onclick="revealMessage()">
+<p id="hiddenText" class="hidden">
+When I hurt you, it was not because I do not care.  
+It was because I failed to think before speaking.  
+That is my responsibility — not yours.
+</p>
+<button id="next2" class="hidden" onclick="nextPage(3)">Continue ➜</button>
+</div>
+</div>
+
+<!-- PAGE 3 (Choice Interaction) -->
+<div id="page3" class="page">
+<div class="card">
+<h1>What Am I To You?</h1>
+<button onclick="choose(1)">Your Bewakuf Aadmi</button>
+<button onclick="choose(2)">Your Nanuu</button>
+<p id="choiceText"></p>
+<button id="next3" class="hidden" onclick="nextPage(4)">Continue ➜</button>
+</div>
+</div>
+
+<!-- PAGE 4 (Hold Button Interaction) -->
+<div id="page4" class="page">
+<div class="card">
+<h1>Hold To Unlock My Promise</h1>
+<button id="holdBtn">Hold Me 🤍</button>
+<p id="promiseText" class="hidden">
+I promise to grow.  
+I promise to protect your heart.  
+I promise to choose patience over ego.  
+You matter too much to me to ever treat you carelessly again.
+</p>
+<button id="next4" class="hidden" onclick="nextPage(5)">Final Message ➜</button>
+</div>
+</div>
+
+<!-- PAGE 5 FINAL -->
+<div id="page5" class="page">
+<div class="card">
+<h1>From My Heart ❤️</h1>
+<p id="finalText"></p>
+<button onclick="startHearts()">Always Yours ❤️</button>
+</div>
+</div>
+
+<script>
+const noBtn=document.getElementById("noBtn");
+const yesBtn=document.getElementById("yesBtn");
+
+noBtn.addEventListener("mouseover",function(){
+const x=Math.random()*(window.innerWidth-100);
+const y=Math.random()*(window.innerHeight-50);
+noBtn.style.left=x+"px";
+noBtn.style.top=y+"px";
+});
+
+yesBtn.onclick=()=>nextPage(2);
+
+function nextPage(num){
+document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+document.getElementById("page"+num).classList.add("active");
+}
+
+function revealMessage(){
+document.getElementById("hiddenText").classList.remove("hidden");
+document.getElementById("next2").classList.remove("hidden");
+}
+
+function choose(option){
+let text="";
+if(option===1){
+text="Yes… I am your bewakuf aadmi. But I am learning to be a better one for you.";
+}else{
+text="Yes… I am your nanuu. And I want to be the one you feel safe with.";
+}
+document.getElementById("choiceText").innerText=text;
+document.getElementById("next3").classList.remove("hidden");
+}
+
+let holdTimer;
+document.getElementById("holdBtn").onmousedown=function(){
+holdTimer=setTimeout(()=>{
+document.getElementById("promiseText").classList.remove("hidden");
+document.getElementById("next4").classList.remove("hidden");
+},1000);
+};
+document.getElementById("holdBtn").onmouseup=function(){
+clearTimeout(holdTimer);
+};
+
+const finalMessage=`Mero budii,
+
+I do not want a fragile love.
+I want a love that grows stronger after mistakes.
+
+I am your bewakuf aadmi.
+I am your nanuu.
+And I am yours with sincerity, loyalty, and intention.
+
+I will show you through actions that you are valued,
+respected, and deeply loved.
+
+Thank you for giving me the chance to grow.`;
+
+document.getElementById("finalText").innerText=finalMessage;
+
+function startHearts(){
+setInterval(()=>{
+const heart=document.createElement("div");
+heart.classList.add("heart");
+heart.innerText="❤️";
+heart.style.left=Math.random()*100+"vw";
+document.body.appendChild(heart);
+setTimeout(()=>heart.remove(),6000);
+},300);
+}
+</script>
+
+</body>
+</html>
